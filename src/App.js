@@ -5,7 +5,8 @@ const divFromPhoto = (photo) => {
   console.log('photo:', photo);
   let url = photo.url,
     sender = photo.sender.slice(photo.sender.length-4),
-    receivedAt = new Date(photo.receivedAt * 1000);
+    msgBody = 'msgBody' in photo ? photo.msgBody : false;
+    // receivedAt = new Date(photo.receivedAt * 1000).toString();
     // urlType = photo.urlType;
 
     return (
@@ -16,11 +17,11 @@ const divFromPhoto = (photo) => {
           alt={'alt_' + url}
           style={{
             width: '31vw',
-            height: '87vh'
+            height: '91vh'
           }}
         />
-        <div key={'sender_' + sender}>{'From: ' + sender}</div>
-        <div key={'timed_' + receivedAt.toString()}>{receivedAt.toString()}</div>
+        { msgBody ? <span>{msgBody}</span> : null }
+        <div key={'sender_' + sender}>{sender}</div>
       </div>
     );
 };
