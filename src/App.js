@@ -2,9 +2,10 @@ import React from 'react';
 import Slider from 'react-slick';
 
 const divFromPhoto = (photo) => {
+  console.log('photo:', photo);
   let url = photo.url,
     sender = photo.sender.slice(photo.sender.length-4),
-    receivedAt = new Date(photo.receivedAt * 1000).toString();
+    receivedAt = new Date(photo.receivedAt * 1000);
     // urlType = photo.urlType;
 
     return (
@@ -13,11 +14,13 @@ const divFromPhoto = (photo) => {
           src={url}
           key={url}
           alt={'alt_' + url}
-          width={'85%'}
-          height={'75%'}
+          style={{
+            width: '31vw',
+            height: '87vh'
+          }}
         />
-        <div key={'sender_' + sender}>{sender}</div>
-        <div key={'timed_' + receivedAt}>{receivedAt}</div>
+        <div key={'sender_' + sender}>{'From: ' + sender}</div>
+        <div key={'timed_' + receivedAt.toString()}>{receivedAt.toString()}</div>
       </div>
     );
 };
@@ -29,9 +32,9 @@ class MySlider extends React.Component {
     autoplay: true,
     dots: false,
     infinite: true,
-    speed: 5000,
-    autoplayspeed: 2000,
-    slidesToShow: 2,
+    speed: 13000,
+    autoplayspeed: 8000,
+    slidesToShow: 3,
     slidesToScroll: 1
   };
 
