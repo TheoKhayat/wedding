@@ -38,19 +38,23 @@ class MySlider extends React.Component {
     slidesToScroll: 1
   };
 
+  interval = null;
+
   state = { photos: null };
 
   getPhotos = () => {
+    console.log('getting photos...');
     if (this.state.photos) { this.setState({photos: null}) };
     fetch('https://y5gfm8ypt6.execute-api.us-east-1.amazonaws.com/default/weddingPhoto')
       .then(response => response.json())
       .then(response => this.setState({photos: response}))
       .catch(error => console.log('e >>', error));
+    if (this.interval) { clearInterval(this.interval) };
+    this.interval = setInterval(() => this.getPhotos(), 900000); // 900000 = every 15 mins
   };
 
   componentDidMount(){
     this.getPhotos();
-    setInterval(() => this.getPhotos(), 900000) // every 15 mins
   };
 
   render() {
