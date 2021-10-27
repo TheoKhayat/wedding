@@ -2,7 +2,6 @@ import React from 'react';
 import Slider from 'react-slick';
 
 const divFromPhoto = (photo) => {
-  console.log('photo:', photo);
   let url = photo.url,
     sender = photo.sender.slice(photo.sender.length-4),
     msgBody = 'msgBody' in photo ? photo.msgBody : false;
@@ -41,11 +40,17 @@ class MySlider extends React.Component {
 
   state = { photos: null };
 
-  componentDidMount(){
+  getPhotos = () => {
+    if (this.state.photos) { this.setState({photos: null}) };
     fetch('https://y5gfm8ypt6.execute-api.us-east-1.amazonaws.com/default/weddingPhoto')
       .then(response => response.json())
       .then(response => this.setState({photos: response}))
       .catch(error => console.log('e >>', error));
+  };
+
+  componentDidMount(){
+    this.getPhotos();
+    setInterval(() => this.getPhotos(), 900000) // every 15 mins
   };
 
   render() {
