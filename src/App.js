@@ -3,9 +3,10 @@ import Slider from 'react-slick';
 
 const divFromPhoto = (photo) => {
   let url = photo.url,
-    sender = photo.sender.slice(photo.sender.length-4),
-    msgBody = 'msgBody' in photo ? photo.msgBody : false;
-    // receivedAt = new Date(photo.receivedAt * 1000).toString();
+    sender = photo.sender,
+    vw = 31,
+    // vh = 91;
+    receivedAt = new Date(photo.receivedAt).toLocaleString();
     // urlType = photo.urlType;
 
     return (
@@ -15,12 +16,28 @@ const divFromPhoto = (photo) => {
           key={url}
           alt={'alt_' + url}
           style={{
-            width: '31vw',
-            height: '91vh'
+            width: `${vw}vw`,
+            height: `${2.71*vw}vh`
+          }}
+          onLoad={e => {
+            let natHeight = e.target.naturalHeight,
+              natWidth = e.target.naturalWidth,
+              newHeight = null,
+              newWidth = null;
+            if (natHeight > natWidth) { // portrait
+              console.log('portrait', natHeight, natWidth);
+              // newWidth = `${vw*(natWidth/natHeight)}vw`;
+              // console.log('newWidth:', newWidth);
+              // e.target.style.width = newWidth; // natWidth * (currentHeight/natHeight);
+            } else { // landscape
+              console.log('landscape', natHeight, natWidth);
+              newHeight = `${vw*(natHeight/natWidth)}vh`;
+              // console.log('newHeight:', newHeight);
+              e.target.style.height = newHeight; // natHeight * (currentWidth/natWidth);
+            };
           }}
         />
-        { msgBody ? <span>{msgBody}</span> : null }
-        <div key={'sender_' + sender}>{sender}</div>
+        <div key={'sender_' + sender}>{`${sender} @ ${receivedAt}`}</div>
       </div>
     );
 };
@@ -40,17 +57,23 @@ class MySlider extends React.Component {
 
   interval = null;
 
-  state = { photos: null };
+  state = {
+    photos: null,
+    gettingPhotos: true
+  };
 
   getPhotos = () => {
     console.log('getting photos...');
-    if (this.state.photos) { this.setState({photos: null}) };
+    if (!this.state.gettingPhotos) { this.setState({gettingPhotos: true}) };
     fetch('https://y5gfm8ypt6.execute-api.us-east-1.amazonaws.com/default/weddingPhoto')
       .then(response => response.json())
-      .then(response => this.setState({photos: response}))
+      .then(response => this.setState({
+        photos: response,
+        gettingPhotos: false
+      }))
       .catch(error => console.log('e >>', error));
     if (this.interval) { clearInterval(this.interval) };
-    this.interval = setInterval(() => this.getPhotos(), 900000); // 900000 = every 15 mins
+    this.interval = setInterval(() => this.getPhotos(), 600000); // 600000 = every 10 mins
   };
 
   componentDidMount(){
@@ -58,7 +81,7 @@ class MySlider extends React.Component {
   };
 
   render() {
-    if (!this.state.photos) {
+    if (!this.state.photos || this.state.gettingPhotos) {
       return <p>Getting photos...</p>
     } else {
       return (
