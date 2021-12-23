@@ -6,7 +6,7 @@ const divFromPhoto = (photo) => {
     sender = photo.sender,
     vw = 31,
     // vh = 91;
-    receivedAt = new Date(photo.receivedAt).toLocaleString().split(', ')[1];
+    receivedAt = new Date(photo.receivedAt).toLocaleTimeString();
     // urlType = photo.urlType;
 
     return (
