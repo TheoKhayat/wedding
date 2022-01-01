@@ -2,21 +2,21 @@ import React from 'react';
 import Slider from 'react-slick';
 
 const divFromPhoto = (photo) => {
-  let url = photo.url,
+  const url = photo.url,
     sender = photo.sender,
-    receivedAt = new Date(photo.receivedAt).toLocaleTimeString();
+    receivedAt = new Date(photo.receivedAt).toLocaleTimeString(),
     // urlType = photo.urlType;
-    const imgStyle = {
-        width: '31vw',
-        height: 'auto',
-        maxWidth: '31vw',
-        maxHeight: '91vh',
-        marginTop: '50vh',
-        transform: 'translate3d(0, -50%, 0)'
-      }, textStyle = {
-        textAlign: 'center',
-        fontSize: '24px'
-      };
+    imgStyle = {
+      width: '31vw',
+      height: 'auto',
+      maxWidth: '31vw',
+      maxHeight: '91vh',
+      marginTop: '50vh',
+      transform: 'translate3d(0, -50%, 0)'
+    }, textStyle = {
+      textAlign: 'center',
+      fontSize: '24px',
+    };
 
     return (
       <div key={'div_' + url}>
@@ -26,10 +26,8 @@ const divFromPhoto = (photo) => {
           alt={'alt_' + url}
           style={imgStyle}
         />
-        <div
-          key={'sender_' + sender}
-          style={textStyle}>
-            {<b>{sender}</b>}{` @ ${receivedAt}`}
+        <div key={'sender_' + sender} style={textStyle}>
+          {<b>{sender}</b>}{` @ ${receivedAt}`}
         </div>
       </div>
     );
