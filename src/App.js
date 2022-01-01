@@ -7,17 +7,19 @@ const divFromPhoto = (photo) => {
     receivedAt = new Date(photo.receivedAt).toLocaleTimeString();
     // urlType = photo.urlType;
     const imgStyle = {
-      width: '31vw',
-      height: 'auto',
-      maxWidth: '31vw',
-      maxHeight: '91vh'
-    };
+        width: '31vw',
+        height: 'auto',
+        maxWidth: '31vw',
+        maxHeight: '91vh',
+        marginTop: '50vh',
+        transform: 'translate3d(0, -50%, 0)'
+      }, textStyle = {
+        textAlign: 'center',
+        fontSize: '24px'
+      };
 
     return (
-      <div
-        key={'div_' + url}
-        style={{contentAlign:'center'}} // Logan halp here!!! <3
-      >
+      <div key={'div_' + url}>
         <img
           src={url}
           key={url}
@@ -26,10 +28,7 @@ const divFromPhoto = (photo) => {
         />
         <div
           key={'sender_' + sender}
-          style={{
-            textAlign: 'center',
-            fontSize: '24px'
-          }}>
+          style={textStyle}>
             {<b>{sender}</b>}{` @ ${receivedAt}`}
         </div>
       </div>
