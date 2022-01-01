@@ -6,22 +6,23 @@ const divFromPhoto = (photo) => {
     sender = photo.sender,
     receivedAt = new Date(photo.receivedAt).toLocaleTimeString();
     // urlType = photo.urlType;
+    const imgStyle = {
+      width: '31vw',
+      height: 'auto',
+      maxWidth: '31vw',
+      maxHeight: '91vh'
+    };
 
     return (
       <div
         key={'div_' + url}
-        contentAlign='center' // Logan halp here!!! <3
+        style={{contentAlign:'center'}} // Logan halp here!!! <3
       >
         <img
           src={url}
           key={url}
           alt={'alt_' + url}
-          style={{
-            width: '31vw',
-            height: 'auto',
-            maxWidth: '31vw',
-            maxHeight: '91vh'
-          }}
+          style={imgStyle}
         />
         <div
           key={'sender_' + sender}
