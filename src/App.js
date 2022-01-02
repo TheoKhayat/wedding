@@ -4,7 +4,8 @@ import Slider from 'react-slick';
 const divFromPhoto = (photo) => {
   const url = photo.url,
     sender = photo.sender,
-    receivedAt = new Date(photo.receivedAt).toLocaleTimeString(),
+    receivedAt = new Date(photo.receivedAt)
+      .toLocaleTimeString('en-US', { timeZone: 'America/New_York' }),
     // urlType = photo.urlType;
     imgStyle = {
       width: '31vw',
