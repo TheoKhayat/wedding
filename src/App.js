@@ -1,6 +1,5 @@
 import React from 'react';
 import Slider from 'react-slick';
-import './app.css'
 
 const divFromPhoto = (photo) => {
   const url = photo.url,
@@ -21,16 +20,13 @@ const divFromPhoto = (photo) => {
       maxHeight: '91vh',
       marginTop: '50vh',
       transform: 'translate3d(0, -50%, 0)',
-
-      className: 'card-image'
-
     }, textStyle = {
       textAlign: 'center',
       fontSize: '20px',
     };
 
   return (
-    <div className="card" key={'div_' + url} >
+    <div key={'div_' + url} >
 
       <div
         key={url}
@@ -67,7 +63,6 @@ class MySlider extends React.Component {
     slidesToScroll: 1,
     cssEase: "linear",
     variableWidth: true,
-    swipeToSlide: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -79,9 +74,9 @@ class MySlider extends React.Component {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1
         }
       },
       {
@@ -124,7 +119,7 @@ class MySlider extends React.Component {
       return <p>Getting photos...</p>
     } else {
       return (
-        <div className="container">
+        <div >
           <Slider {...this.settings}>
             {this.state.photos.map(photo => divFromPhoto(photo))}
           </Slider>
