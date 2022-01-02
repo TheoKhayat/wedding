@@ -15,20 +15,20 @@ const divFromPhoto = (photo) => {
       transform: 'translate3d(0, -50%, 0)'
     }, textStyle = {
       textAlign: 'center',
-      fontSize: '24px',
+      fontSize: '24px'
     };
 
     return (
       <div key={'div_' + url}>
+        <div key={'sender_' + sender} style={textStyle}>
+          {<b>{sender}</b>}{` @ ${receivedAt}`}
+        </div>
         <img
           src={url}
           key={url}
           alt={'alt_' + url}
           style={imgStyle}
         />
-        <div key={'sender_' + sender} style={textStyle}>
-          {<b>{sender}</b>}{` @ ${receivedAt}`}
-        </div>
       </div>
     );
 };
