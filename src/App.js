@@ -41,8 +41,8 @@ class MySlider extends React.Component {
     autoplay: true,
     dots: false,
     infinite: true,
-    speed: 13000,
-    autoplayspeed: 8000,
+    speed: 5500,
+    autoplayspeed: 1500,
     slidesToShow: 3,
     slidesToScroll: 1
   };
@@ -65,7 +65,7 @@ class MySlider extends React.Component {
       }))
       .catch(error => console.log('e >>', error));
     if (this.interval) { clearInterval(this.interval) };
-    this.interval = setInterval(() => this.getPhotos(), 600000); // 600000 = every 10 mins
+    this.interval = setInterval(() => this.getPhotos(), 1500000); // 1500000 = every 25 mins
   };
 
   componentDidMount(){
