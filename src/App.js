@@ -4,10 +4,10 @@ import Slider from 'react-slick';
 const divFromPhoto = (photo) => {
   const url = photo.url,
     sender = photo.sender,
+    urlType = photo.urlType,
     receivedAt = new Date(photo.receivedAt)
       .toLocaleTimeString('en-US', { timeZone: 'America/New_York' }),
-    // urlType = photo.urlType;
-    imgStyle = {
+    slideStyle = {
       width: '31vw',
       height: 'auto',
       maxWidth: '31vw',
@@ -19,17 +19,25 @@ const divFromPhoto = (photo) => {
       fontSize: '24px'
     };
 
+    console.log("urlType: ", urlType);
+
     return (
       <div key={'div_' + url}>
         <div key={'sender_' + sender} style={textStyle}>
           {<b>{sender}</b>}{` @ ${receivedAt}`}
         </div>
-        <img
-          src={url}
-          key={url}
-          alt={'alt_' + url}
-          style={imgStyle}
-        />
+        { urlType.startsWith('image/') ?
+          <img
+            src={url}
+            key={url}
+            alt={'alt_' + url}
+            style={slideStyle}
+          />
+          :
+          <video autoPlay muted style={slideStyle}>
+              <source src={url} type={urlType} />
+          </video>
+        }
       </div>
     );
 };
@@ -65,7 +73,7 @@ class MySlider extends React.Component {
       }))
       .catch(error => console.log('e >>', error));
     if (this.interval) { clearInterval(this.interval) };
-    this.interval = setInterval(() => this.getPhotos(), 1500000); // 1500000 = every 25 mins
+    this.interval = setInterval(() => this.getPhotos(), 150000000); // 1500000 = every 25 mins
   };
 
   componentDidMount(){
