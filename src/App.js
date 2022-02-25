@@ -62,8 +62,8 @@ class MySlider extends React.Component {
 
   getPhotos = () => {
     const urlParams = new URLSearchParams(window.location.search);
-    const refresh = urlParams.has('refresh') ? urlParams.get('refresh') : 150000000; // 1500000 = every 25 mins
-    console.log('getting photos...');
+    const refresh = urlParams.has('refresh') ? urlParams.get('refresh') : 300; // refresh mins
+    // to add 
     if (!this.state.gettingPhotos) { this.setState({gettingPhotos: true}) };
     fetch('https://y5gfm8ypt6.execute-api.us-east-1.amazonaws.com/default/weddingPhoto')
       .then(response => response.json())
@@ -71,9 +71,9 @@ class MySlider extends React.Component {
         photos: response,
         gettingPhotos: false
       }))
-      .catch(error => console.log('e >>', error));
+      .catch(error => console.log('error >>', error));
     if (this.interval) { clearInterval(this.interval) };
-    this.interval = setInterval(() => this.getPhotos(), refresh);
+    this.interval = setInterval(() => this.getPhotos(), refresh*60*1000);
   };
 
   componentDidMount(){
