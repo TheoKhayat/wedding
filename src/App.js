@@ -19,8 +19,6 @@ const divFromPhoto = (photo) => {
       fontSize: '24px'
     };
 
-    console.log("urlType: ", urlType);
-
     return (
       <div key={'div_' + url}>
         <div key={'sender_' + sender} style={textStyle}>
@@ -63,6 +61,8 @@ class MySlider extends React.Component {
   };
 
   getPhotos = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const refresh = urlParams.has('refresh') ? urlParams.get('refresh') : 150000000; // 1500000 = every 25 mins
     console.log('getting photos...');
     if (!this.state.gettingPhotos) { this.setState({gettingPhotos: true}) };
     fetch('https://y5gfm8ypt6.execute-api.us-east-1.amazonaws.com/default/weddingPhoto')
@@ -73,7 +73,7 @@ class MySlider extends React.Component {
       }))
       .catch(error => console.log('e >>', error));
     if (this.interval) { clearInterval(this.interval) };
-    this.interval = setInterval(() => this.getPhotos(), 150000000); // 1500000 = every 25 mins
+    this.interval = setInterval(() => this.getPhotos(), refresh);
   };
 
   componentDidMount(){
