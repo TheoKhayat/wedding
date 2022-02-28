@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
+import * as constants from './constants';
 
 const divFromPhoto = (photo) => {
   const url = photo.url,
@@ -43,15 +44,9 @@ const divFromPhoto = (photo) => {
 
 class MySlider extends React.Component {
 
-  settings = { // https://react-slick.neostack.com/docs/api/
-    autoplay: true,
-    dots: false,
-    infinite: true,
-    speed: 5500,
-    autoplayspeed: 1500,
-    slidesToShow: 3,
-    slidesToScroll: 1
-  };
+  urlParams = new URLSearchParams(window.location.search);
+  refresh = this.urlParams.has('refresh') ? this.urlParams.get('refresh') : 300; // refresh mins
+  occasion = this.urlParams.has('occasion') ? this.urlParams.get('occasion') : 'khayat-motz';
 
   interval = null;
 
@@ -61,11 +56,9 @@ class MySlider extends React.Component {
   };
 
   getPhotos = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const refresh = urlParams.has('refresh') ? urlParams.get('refresh') : 300; // refresh mins
-    // to add 
+
     if (!this.state.gettingPhotos) { this.setState({gettingPhotos: true}) };
-    fetch('https://y5gfm8ypt6.execute-api.us-east-1.amazonaws.com/default/weddingPhoto')
+    fetch(constants.BASE_URL + '?occasion=' + this.occasion)
       .then(response => response.json())
       .then(response => this.setState({
         photos: response,
@@ -73,7 +66,7 @@ class MySlider extends React.Component {
       }))
       .catch(error => console.log('error >>', error));
     if (this.interval) { clearInterval(this.interval) };
-    this.interval = setInterval(() => this.getPhotos(), refresh*60*1000);
+    this.interval = setInterval(() => this.getPhotos(), this.refresh*60*1000);
   };
 
   componentDidMount(){
@@ -85,7 +78,7 @@ class MySlider extends React.Component {
       return <p>Getting photos...</p>
     } else {
       return (
-        <Slider {...this.settings}>
+        <Slider {...constants.SETTINGS}>
           { this.state.photos.map(photo => divFromPhoto(photo)) }
         </Slider>
       );
