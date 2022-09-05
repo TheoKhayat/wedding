@@ -54,13 +54,12 @@ class Slides extends React.Component {
       .then(response => response.json())
       .then(response => this.setState({
         eventTitle: response.title,
-        photos: response.photos.reverse(),
+        photos: response.photos.reverse(), //  for newest to oldest
         gettingPhotos: false
       }))
       .catch(error => console.log('error >>', error));
     if (this.interval) { clearInterval(this.interval) };
     this.interval = setInterval(() => this.getPhotos(), this.refresh*60*1000);
-    document.title = `${this.state.eventTitle ? this.state.eventTitle : "Khayat-Motz Wedding"} | Captured.Day`;
   };
 
   componentDidMount(){
@@ -68,6 +67,7 @@ class Slides extends React.Component {
   };
 
   render() {
+    document.title = `${this.state.eventTitle} | Captured.Day`;
     if (!this.state.photos || this.state.gettingPhotos) {
       return <p>Getting photos...</p>
     } else {
