@@ -42,6 +42,7 @@ class Slides extends React.Component {
   interval = null;
 
   state = {
+    eventTitle: null,
     photos: null,
     gettingPhotos: true
   };
@@ -52,12 +53,14 @@ class Slides extends React.Component {
     fetch(constants.BASE_URL + '?occasion=' + this.occasion)
       .then(response => response.json())
       .then(response => this.setState({
-        photos: response,
+        eventTitle: response.title,
+        photos: response.photos.reverse(),
         gettingPhotos: false
       }))
       .catch(error => console.log('error >>', error));
     if (this.interval) { clearInterval(this.interval) };
     this.interval = setInterval(() => this.getPhotos(), this.refresh*60*1000);
+    document.title = `${this.state.eventTitle ? this.state.eventTitle : "Khayat-Motz Wedding"} | Captured.Day`;
   };
 
   componentDidMount(){

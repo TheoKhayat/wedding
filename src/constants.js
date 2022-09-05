@@ -5,7 +5,7 @@ export const SLIDE_SETTINGS = { // https://react-slick.neostack.com/docs/api/
   autoplayspeed: 1500,
   dots: false,
   infinite: true,
-  slidesToScroll: 1,
+  // slidesToScroll: 1,
   slidesToShow: 3,
   speed: 5500,
   swipeToSlide: true
