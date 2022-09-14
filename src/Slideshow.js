@@ -2,29 +2,29 @@ import React from 'react';
 import Slider from 'react-slick';
 import * as constants from './constants';
 
-const divFromPhoto = (photo, timezone) => {
+const divFromPhoto = (photo, timezone, labels) => {
   const url = photo.url,
     sender = photo.sender,
     urlType = photo.urlType,
     receivedAt = new Date(photo.receivedAt)
-      .toLocaleTimeString('en-US', { timeZone: constants.TIMEZONES[timezone] }),
-    slideStyle = constants.SLIDE_STYLE,
-    textStyle = constants.TEXT_STYLE;
+      .toLocaleTimeString('en-US', { timeZone: constants.TIMEZONES[timezone] });
 
     return (
       <div key={'div_' + url}>
-        <div key={'sender_' + sender} style={textStyle}>
-          {<b>{sender}</b>}{` @ ${receivedAt}`}
-        </div>
+        { labels && 
+          <div key={'sender_' + sender} style={constants.TEXT_STYLE}>
+            {<b>{sender}</b>}{` @ ${receivedAt}`}
+          </div>
+        }
         { urlType.startsWith('image/') ?
           <img
             src={url}
             key={url}
             alt={'alt_' + url}
-            style={slideStyle}
+            style={constants.SLIDE_STYLE}
           />
           :
-          <video autoPlay muted style={slideStyle}>
+          <video autoPlay muted style={constants.SLIDE_STYLE}>
               <source src={url} type={urlType} />
           </video>
         }
@@ -38,6 +38,9 @@ class Slides extends React.Component {
   refresh = this.urlParams.has('refresh') ? this.urlParams.get('refresh') : 300; // refresh mins
   occasion = this.urlParams.has('occasion') ? this.urlParams.get('occasion') : 'khayat-motz';
   timezone = this.urlParams.has('tz') ? this.urlParams.get('tz') : 'est';
+  labels = this.urlParams.has('labels') ? this.urlParams.get('labels') !== "none" : true;
+  // maybe need header
+  // maybe need key
 
   interval = null;
 
@@ -67,14 +70,19 @@ class Slides extends React.Component {
   };
 
   render() {
-    document.title = `${this.state.eventTitle} | Captured.Day`;
+    document.title = this.state.eventTitle ? `${this.state.eventTitle} | Captured.Day` : "Captured.Day";
     if (!this.state.photos || this.state.gettingPhotos) {
       return <p>Getting photos...</p>
     } else {
       return (
-        <Slider {...constants.SLIDE_SETTINGS}>
-          { this.state.photos.map(photo => divFromPhoto(photo, this.timezone)) }
-        </Slider>
+        <>
+          { this.state.eventTitle &&
+            <h4 style={constants.HEADER_STYLE}>{this.state.eventTitle}</h4>
+          }
+          <Slider {...constants.SLIDE_SETTINGS}>
+            { this.state.photos.map(photo => divFromPhoto(photo, this.timezone, this.labels)) }
+          </Slider>
+        </>
       );
     }; 
   };

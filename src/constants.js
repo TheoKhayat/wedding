@@ -20,6 +20,13 @@ export const SLIDE_STYLE = {
   transform: 'translate3d(0, -50%, 0)'
 };
 
+export const HEADER_STYLE = {
+  textAlign: 'center',
+  fontSize: '24px',
+  backgroundColor: 'pink',
+  width: '100vw'
+};
+
 export const TEXT_STYLE = {
   textAlign: 'center',
   fontSize: '24px'
