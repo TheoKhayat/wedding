@@ -77,7 +77,7 @@ class Slides extends React.Component {
       return (
         <>
           { this.state.eventTitle &&
-            <h4 style={constants.HEADER_STYLE}>{this.state.eventTitle}</h4>
+            <h2 style={constants.HEADER_STYLE}>{this.state.eventTitle}</h2>
           }
           <Slider {...constants.SLIDE_SETTINGS}>
             { this.state.photos.map(photo => divFromPhoto(photo, this.timezone, this.labels)) }
