@@ -10,9 +10,9 @@ const divFromPhoto = (photo, timezone, labels) => {
       .toLocaleTimeString('en-US', { timeZone: constants.TIMEZONES[timezone] });
 
     return (
-      <div key={'div_' + url}>
+      <div key={`div_${url}`}>
         { labels && 
-          <div key={'sender_' + sender} style={constants.TEXT_STYLE}>
+          <div key={`sender_${sender}`} style={constants.TEXT_STYLE}>
             {<b>{sender}</b>}{` @ ${receivedAt}`}
           </div>
         }
@@ -20,7 +20,7 @@ const divFromPhoto = (photo, timezone, labels) => {
           <img
             src={url}
             key={url}
-            alt={'alt_' + url}
+            alt={`alt_${url}`}
             style={constants.SLIDE_STYLE}
           />
           :
@@ -35,12 +35,11 @@ const divFromPhoto = (photo, timezone, labels) => {
 
 class Slides extends React.Component {
   urlParams = new URLSearchParams(window.location.search);
-  refresh = this.urlParams.has('refresh') ? this.urlParams.get('refresh') : 300; // refresh mins
+  refresh = this.urlParams.has('refresh') ? this.urlParams.get('refresh') : 25; // refresh mins
   occasion = this.urlParams.has('occasion') ? this.urlParams.get('occasion') : 'khayat-motz';
   timezone = this.urlParams.has('tz') ? this.urlParams.get('tz') : 'est';
   labels = this.urlParams.has('labels') ? this.urlParams.get('labels') !== "none" : true;
-  // maybe need header
-  // maybe need key
+  key = this.urlParams.has('key') ? this.urlParams.get('key') : null;
 
   interval = null;
 
@@ -53,7 +52,11 @@ class Slides extends React.Component {
   getPhotos = () => {
 
     if (!this.state.gettingPhotos) { this.setState({gettingPhotos: true}) };
-    fetch(constants.BASE_URL + '?occasion=' + this.occasion)
+
+    let getUrl = `${constants.BASE_URL}?occasion=${this.occasion}`;
+    if (this.key) { getUrl += `&key=${this.key}` };
+
+    fetch(getUrl)
       .then(response => response.json())
       .then(response => this.setState({
         eventTitle: response.title,

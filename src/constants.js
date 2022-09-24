@@ -17,27 +17,30 @@ export const SLIDE_STYLE = {
   width: '31vw',
   height: 'auto',
   maxWidth: '31vw',
-  maxHeight: '75vh',
+  maxHeight: '78vh',
   marginTop: '32vh',
-  transform: 'translate3d(0, -32%, 0)'
+  transform: 'translate3d(0, -39%, 0)'
 };
 
 export const HEADER_STYLE = {
-  backgroundColor: '#C6B8AC',
+  backgroundColor: '#87786B',
   color: 'white',
   fontFamily: 'El Messiri',
-  fontSize: '31px',
+  fontSize: '5vh',
   fontStyle: 'italic',
   textAlign: 'left',
   paddingLeft: '3vw',
-  width: '100vw'
+  paddingTop: '1vw',
+  width: '100vw',
+  height: '8vh'
 };
 
 export const TEXT_STYLE = {
   textAlign: 'center',
   fontFamily: 'El Messiri',
   fontSize: '22px',
-  fontStyle: 'italic'
+  fontStyle: 'italic',
+  color: 'white'
 };
 
 export const TIMEZONES = {
