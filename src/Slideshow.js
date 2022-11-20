@@ -38,8 +38,8 @@ class Slides extends React.Component {
   refresh = this.urlParams.has('refresh') ? this.urlParams.get('refresh') : 25; // refresh mins
   occasion = this.urlParams.has('occasion') ? this.urlParams.get('occasion') : 'khayat-motz';
   timezone = this.urlParams.has('tz') ? this.urlParams.get('tz') : 'est';
-  labels = this.urlParams.has('labels') ? this.urlParams.get('labels') !== "none" : true;
-  key = this.urlParams.has('key') ? this.urlParams.get('key') : null;
+  labels = this.urlParams.has('labels') ? this.urlParams.get('labels') === 'time' : false;
+  // key = this.urlParams.has('key') ? this.urlParams.get('key') : null;
 
   interval = null;
 
@@ -54,7 +54,7 @@ class Slides extends React.Component {
     if (!this.state.gettingPhotos) { this.setState({gettingPhotos: true}) };
 
     let getUrl = `${constants.BASE_URL}?occasion=${this.occasion}`;
-    if (this.key) { getUrl += `&key=${this.key}` };
+    // if (this.key) { getUrl += `&key=${this.key}` };
 
     fetch(getUrl)
       .then(response => response.json())
@@ -69,11 +69,11 @@ class Slides extends React.Component {
   };
 
   componentDidMount(){
+    document.title = this.state.eventTitle ? `${this.state.eventTitle} | Captured.Day` : 'Captured.Day';
     this.getPhotos();
   };
 
   render() {
-    document.title = this.state.eventTitle ? `${this.state.eventTitle} | Captured.Day` : "Captured.Day";
     if (!this.state.photos || this.state.gettingPhotos) {
       return <p>Getting photos...</p>
     } else {

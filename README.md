@@ -1,4 +1,4 @@
-Slideshow remains available @ https://theokhayat.github.io/wedding
+Slideshow remains available @ https://captured.day
 
 Thanks to everyone who made that day so special <3 T + C
 
