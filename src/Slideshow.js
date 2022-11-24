@@ -41,8 +41,6 @@ class Slides extends React.Component {
   labels = this.urlParams.has('labels') ? this.urlParams.get('labels') === 'time' : false;
   // key = this.urlParams.has('key') ? this.urlParams.get('key') : null;
 
-  interval = null;
-
   state = {
     eventTitle: null,
     photos: null,
@@ -50,13 +48,9 @@ class Slides extends React.Component {
   };
 
   getPhotos = () => {
-
     if (!this.state.gettingPhotos) { this.setState({gettingPhotos: true}) };
 
-    let getUrl = `${constants.BASE_URL}?occasion=${this.occasion}`;
-    // if (this.key) { getUrl += `&key=${this.key}` };
-
-    fetch(getUrl)
+    fetch(`${constants.BASE_URL}?occasion=${this.occasion}`)
       .then(response => response.json())
       .then(response => this.setState({
         eventTitle: response.title,
@@ -64,16 +58,16 @@ class Slides extends React.Component {
         gettingPhotos: false
       }))
       .catch(error => console.log('error >>', error));
-    if (this.interval) { clearInterval(this.interval) };
-    this.interval = setInterval(() => this.getPhotos(), this.refresh*60*1000);
   };
 
-  componentDidMount(){
-    document.title = this.state.eventTitle ? `${this.state.eventTitle} | Captured.Day` : 'Captured.Day';
+  componentDidMount() {
     this.getPhotos();
+    window.addEventListener('resize', () => window.location.reload(false));
+    setInterval(() => this.getPhotos(), this.refresh*60*1000);
   };
 
   render() {
+    document.title = this.state.eventTitle ? `${this.state.eventTitle} | Captured.Day` : 'Captured.Day';
     if (!this.state.photos || this.state.gettingPhotos) {
       return <p>Getting photos...</p>
     } else {
