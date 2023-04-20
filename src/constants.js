@@ -47,5 +47,6 @@ export const TIMEZONES = {
   est: 'America/New_York',
   cst: 'America/Chicago',
   mst: 'US/Arizona',
-  pst: 'America/Los_Angeles'
+  pst: 'America/Los_Angeles',
+  hst: 'Pacific/Honolulu'
 };
