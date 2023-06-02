@@ -36,7 +36,7 @@ const divFromPhoto = (photo, timezone, labels) => {
 class Slides extends React.Component {
   urlParams = new URLSearchParams(window.location.search);
   refresh = this.urlParams.has('refresh') ? this.urlParams.get('refresh') : 25; // refresh mins
-  occasion = this.urlParams.has('occasion') ? this.urlParams.get('occasion') : 'khayat-motz';
+  occasion = this.urlParams.has('occasion') ? this.urlParams.get('occasion') : null;
   timezone = this.urlParams.has('tz') ? this.urlParams.get('tz') : 'est';
   labels = this.urlParams.has('labels') ? this.urlParams.get('labels') === 'time' : false;
   // key = this.urlParams.has('key') ? this.urlParams.get('key') : null;
@@ -68,7 +68,10 @@ class Slides extends React.Component {
 
   render() {
     document.title = this.state.eventTitle ? `${this.state.eventTitle} | Captured.Day` : 'Captured.Day';
-    if (!this.state.photos || this.state.gettingPhotos) {
+    if (!this.occasion) {
+      return <p>Occasion required. If you need help with this, please contact your event coordinator.</p>
+    }
+    else if (!this.state.photos || this.state.gettingPhotos) {
       return <p>Getting photos...</p>
     } else {
       return (
