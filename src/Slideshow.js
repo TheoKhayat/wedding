@@ -7,7 +7,7 @@ const divFromPhoto = (photo, timezone, labels) => {
     sender = photo.sender,
     urlType = photo.urlType,
     receivedAt = new Date(photo.receivedAt)
-      .toLocaleTimeString('en-US', { timeZone: constants.TIMEZONES[timezone] });
+      .toLocaleTimeString('en-US', { timeZone: constants.TIMEZONES[timezone], timeStyle: 'short' });
 
     return (
       <div key={`div_${url}`}>
@@ -39,7 +39,6 @@ class Slides extends React.Component {
   occasion = this.urlParams.has('occasion') ? this.urlParams.get('occasion') : null;
   timezone = this.urlParams.has('tz') ? this.urlParams.get('tz') : 'est';
   labels = this.urlParams.has('labels') ? this.urlParams.get('labels') === 'time' : false;
-  // key = this.urlParams.has('key') ? this.urlParams.get('key') : null;
 
   state = {
     eventTitle: null,
