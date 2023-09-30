@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import * as constants from './constants';
 
-const divFromPhoto = (photo, timezone, labels) => {
+const slideFromPhoto = (photo, timezone, labels) => {
   const url = photo.url,
     sender = photo.sender,
     urlType = photo.urlType,
@@ -20,7 +20,7 @@ const divFromPhoto = (photo, timezone, labels) => {
           <img
             src={url}
             key={url}
-            alt={`alt_${url}`}
+            alt={'slide'}
             style={constants.SLIDE_STYLE}
           />
           :
@@ -35,6 +35,7 @@ const divFromPhoto = (photo, timezone, labels) => {
 
 class Slides extends React.Component {
   urlParams = new URLSearchParams(window.location.search);
+
   refresh = this.urlParams.has('refresh') ? this.urlParams.get('refresh') : 25; // refresh mins
   occasion = this.urlParams.has('occasion') ? this.urlParams.get('occasion') : null;
   timezone = this.urlParams.has('tz') ? this.urlParams.get('tz') : 'est';
@@ -53,7 +54,7 @@ class Slides extends React.Component {
       .then(response => response.json())
       .then(response => this.setState({
         eventTitle: response.title,
-        photos: response.photos.reverse(), //  for newest to oldest
+        photos: response.photos.reverse(), // newest to oldest
         gettingPhotos: false
       }))
       .catch(error => console.log('error >>', error));
@@ -72,6 +73,12 @@ class Slides extends React.Component {
     }
     else if (!this.state.photos || this.state.gettingPhotos) {
       return <p>Getting photos...</p>
+    } else if (this.urlParams.get('view') === 'gallery') {
+      return (
+        <div style={constants.GALLERY_STYLE}>
+          { this.state.photos.map(photo => <img key={photo.url} src={photo.url} alt={'gallery'} style={constants.GALLERY_IMG_STYLE} />) }
+        </div>
+      );
     } else {
       return (
         <>
@@ -79,7 +86,7 @@ class Slides extends React.Component {
             <h2 style={constants.HEADER_STYLE}>{this.state.eventTitle}</h2>
           }
           <Slider {...constants.SLIDE_SETTINGS}>
-            { this.state.photos.map(photo => divFromPhoto(photo, this.timezone, this.labels)) }
+            { this.state.photos.map(photo => slideFromPhoto(photo, this.timezone, this.labels)) }
           </Slider>
         </>
       );

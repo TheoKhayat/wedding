@@ -43,6 +43,18 @@ export const TEXT_STYLE = {
   color: 'white'
 };
 
+export const GALLERY_STYLE = {
+  justifyContent: 'center',
+  overflowX: 'auto'
+};
+
+export const GALLERY_IMG_STYLE = {
+  marginTop: '4px',
+  maxWidth: '100%',
+  height: 'auto',
+  borderRadius: '2px'
+};
+
 export const TIMEZONES = {
   est: 'America/New_York',
   cst: 'America/Chicago',
