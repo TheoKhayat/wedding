@@ -45,14 +45,20 @@ export const TEXT_STYLE = {
 
 export const GALLERY_STYLE = {
   justifyContent: 'center',
-  overflowX: 'auto'
+  textAlign: 'center',
+  overflowX: 'auto',
+  marginBottom: '8px'
 };
 
 export const GALLERY_IMG_STYLE = {
-  marginTop: '4px',
+  marginTop: '3px',
   maxWidth: '100%',
   height: 'auto',
   borderRadius: '2px'
+};
+
+export const TO_UPLOADER_STYLE = {
+  fontSize: '27px'
 };
 
 export const TIMEZONES = {

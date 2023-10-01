@@ -62,7 +62,7 @@ class Slides extends React.Component {
 
   componentDidMount() {
     this.getPhotos();
-    window.addEventListener('resize', () => window.location.reload(false));
+    window.addEventListener('resize', () => {if (this.urlParams.get('view') !== 'gallery') {window.location.reload(false);}});
     setInterval(() => this.getPhotos(), this.refresh*60*1000);
   };
 
@@ -77,6 +77,9 @@ class Slides extends React.Component {
       return (
         <div style={constants.GALLERY_STYLE}>
           { this.state.photos.map(photo => <img key={photo.url} src={photo.url} alt={'gallery'} style={constants.GALLERY_IMG_STYLE} />) }
+          <br/>
+          <br/>
+          <a href={'https://captured.pics?occasion=' + this.occasion} target={'_blank'} style={constants.TO_UPLOADER_STYLE}>👈 back to upload yours 🙂🤳</a>
         </div>
       );
     } else {
