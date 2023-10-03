@@ -79,7 +79,9 @@ class Slides extends React.Component {
           { this.state.photos.map(photo => <img key={photo.url} src={photo.url} alt={'gallery'} style={constants.GALLERY_IMG_STYLE} />) }
           <br/>
           <br/>
-          <a href={'https://captured.pics?occasion=' + this.occasion} target={'_blank'} style={constants.TO_UPLOADER_STYLE}>👈 back to upload yours 🙂🤳</a>
+          <a href={`https://captured.pics?occasion=${this.occasion}`} target={'_blank'} rel={'noreferrer'} style={constants.TO_UPLOADER_STYLE}>👈 back to upload yours 🙂🤳</a>
+          <br/>
+          <br/>
         </div>
       );
     } else {
