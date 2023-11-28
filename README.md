@@ -1,4 +1,4 @@
-Check us out @ www.capturemyday.com
+Bring this experience to your event! @ www.captured.day
 
 Thanks to everyone who made that day so special <3 T + C
 
