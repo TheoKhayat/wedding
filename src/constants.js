@@ -58,7 +58,12 @@ export const GALLERY_IMG_STYLE = {
 };
 
 export const TO_UPLOADER_STYLE = {
-  fontSize: '27px'
+  width: '93%',
+  border: 'none',
+  borderRadius: '23px',
+  fontSize: '2rem',
+  backgroundColor: '#3d7abf',
+  color: '#fff'
 };
 
 export const TIMEZONES = {
