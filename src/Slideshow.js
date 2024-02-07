@@ -79,7 +79,7 @@ class Slides extends React.Component {
           { this.state.photos.map(photo => <img key={photo.url} src={photo.url} alt={'gallery'} style={constants.GALLERY_IMG_STYLE} />) }
           <br/>
           <br/>
-          <button style={constants.TO_UPLOADER_STYLE} onClick={() => window.open(`https://captured.pics?occasion=${this.occasion}`, "_blank", "noreferrer")}>👈 Add 🙂🤳</button>
+          <button style={constants.TO_UPLOADER_STYLE} onClick={() => window.open(`https://captured.pics?occasion=${this.occasion}`, "_blank", "noreferrer")}>👈 Add More 🙂</button>
           <br/>
           <br/>
         </div>
