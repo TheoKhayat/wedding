@@ -16,10 +16,8 @@ export const SLIDE_STYLE = {
   borderRadius: 10,
   width: '31vw',
   height: 'auto',
-  maxWidth: '31vw',
-  maxHeight: '78vh',
-  marginTop: '32vh',
-  transform: 'translate3d(0, -39%, 0)'
+  marginTop: '31vh',
+  transform: 'translateY(-39%)'
 };
 
 export const HEADER_STYLE = {
