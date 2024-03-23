@@ -67,7 +67,7 @@ class Slides extends React.Component {
   };
 
   render() {
-    document.title = this.state.eventTitle ? `${this.state.eventTitle} | Captured.Day` : 'Captured.Day';
+    document.title = this.state.eventTitle ? `${this.state.eventTitle} | Captured Day` : 'Captured Day';
     if (!this.occasion) {
       return <p>Occasion required. If you need help with this, please contact your event coordinator.</p>
     }
@@ -79,7 +79,7 @@ class Slides extends React.Component {
           { this.state.photos.map(photo => <img key={photo.url} src={photo.url} alt={'gallery'} style={constants.GALLERY_IMG_STYLE} />) }
           <br/>
           <br/>
-          <button style={constants.TO_UPLOADER_STYLE} onClick={() => window.open(`https://captured.pics?occasion=${this.occasion}`, "_blank", "noreferrer")}>👈 Add more 🙂</button>
+          <button style={constants.TO_UPLOADER_STYLE} onClick={() => window.open(`https://captured.pics/occasion/${this.occasion}`, "_blank", "noreferrer")}>👈 Add more 🙂</button>
           <br/>
           <br/>
         </div>
