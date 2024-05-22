@@ -63,6 +63,7 @@ class Slides extends React.Component {
   componentDidMount() {
     this.getPhotos();
     window.addEventListener('resize', () => {if (this.urlParams.get('view') !== 'gallery') {window.location.reload(false);}});
+    if ('wakeLock' in navigator) navigator.wakeLock.request('screen').catch(console.error);
     setInterval(() => this.getPhotos(), this.refresh*60*1000);
   };
 
